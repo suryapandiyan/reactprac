@@ -1,93 +1,86 @@
-// function Header({course}){
-//   return(
-//     <h1>{course} </h1>
-//   )
-// }
-// function Content({part},{exercises}){
-//   return(
-//     <div>
-//     <p>{part}</p>
-//     <p>{exercises}</p>
-
-// import { useState } from "react";
-
-    
-//     </div>
-//   )
-// }
-// function Total(){
-//   const exercises1=10;
-//   const exercises2=7;
-//   const exercises3=14;
-//   return(
-//     <div>
-//       <p>Number of Exercises:{exercises1+exercises2+exercises3}</p>
-//     </div>
-//   )
-// }
-// function App() {
-//  const course='Half stack application development';
-//  const part1='Fundamental of React';
-//  const exercises1=10;
-//  const part2='Using props to pass data';
-//   const exercises2=7;
-//   const part3='State of Component';
-//   const exercises3=14;
-
-//   return (
-//      <div> 
-//       <Header course={course} />
-//       <Content part={part1} exercises={exercises1}/>
-//       <Content part={part2} exercises={exercises2}/>
-//       <Content part={part3} exercises={exercises3}/>
-//       <Total />
-//      </div>
-    
-      
-//   )
-// }
-
-// export default App;
-function Statistics({good,neutral,bad})
-{
-return(
-  <div>
-    <h1>Statistics</h1>
-        <p>good {good}</p>
-        <p>neutral{neutral}</p>
-        <p>bad {bad}</p>
-        <p>all{good+neutral+bad}</p>
-        <p>average{(good+neutral+bad)/3}</p>
-        <p>positive{((good)/(good+neutral+bad) *100)} %</p>  
-  </div>
-)
-}
-// function button(){
-//   return(
-//     <button onClick={()=>setGood(good+1)}>good</button>
-//          <button onClick={()=>setNeutral(neutral+1)}>neutral</button>
-//          <button onClick={()=>setBad(bad+1)}>bad</button>
-
-//   )
-// }
-function header(){
+ //without react router
+ import React, { useState } from 'react';
+ import{Link,Route,BrowserRouter as Router, Routes}from 'react-router-dom';
+ function Home(){
   return(
-    <h1>Give Feedback</h1>
+    <div>
+        <h1>Home Page</h1> 
+    </div>
+    
+    
   )
-  
-}
-function App() {
- const [good,setGood]=useState(0) 
- const [neutral,setNeutral]=useState(0)
- const [bad,setBad]=useState(0)
-  return (
-    <div> 
-        <div>
-         <header />
-        <Statistics good={good} bad={bad} neutral={neutral}/>
-        </div>
-
+ }
+ function About(){
+  return(
+    <div>
+      <h1> About Page</h1>
     </div>
   )
+ }
+ function User(){
+  return(
+    <div>
+          <h1>User Page</h1>
+    </div>
+    
+  )
+ }
+ function Contact(){
+  return(
+    <div>
+      <h1>
+      Contact Page
+      </h1>
+    </div>
+    )
+ }
+ 
+ export default function App() {
+  const [page,setPage]= useState('home');
+  const content= ()=> {
+    if(page==='Home'){
+      return<Home/>;
+    }else if(page==='About'){
+      return<About/>
+    }
+    else if(page==='User'){
+      return<User/>
+    }
+    else if(page==='Contact'){
+      return<Contact/>
+    }
+    
+
+  }
+  const toPage= (page)=>(event)=>{
+  event.preventDefault();
+  setPage(page);
 }
-export default App;
+  const padding= {
+    padding:10
+  };
+   return (
+     <div>
+      <Router>
+     <div>
+       <Link to='/' style={padding}>Home</Link>
+       <Link to='/About' style={padding}>About</Link> 
+       <Link to='/User'  style={padding}>User</Link>    
+       <Link to='/Contact' style={padding}>Contact</Link> 
+       <Routes>
+      <Route  path='/About' element={<About/>}/>
+      <Route path='/User' element={<User/>}/>
+
+      <Route path='/Contact' element={<Contact/>}/>
+      <Route path='/' element={<Home/>}/>
+
+     </Routes>
+     
+     </div>
+     </Router>
+       
+      {content ()}
+     </div>
+   )
+ }
+  

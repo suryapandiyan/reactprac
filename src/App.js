@@ -1,19 +1,24 @@
  //without react router
  import React, { useState } from 'react';
  import{Link,Route,BrowserRouter as Router, Routes}from 'react-router-dom';
+ import 'bootstrap/dist/css/bootstrap.css';
  function Home(){
   return(
     <div>
-        <h1>Home Page</h1> 
+        <h1><button className="btn btn-warning">Home Page</button></h1> 
     </div>
-    
-    
   )
  }
  function About(){
   return(
     <div>
       <h1> About Page</h1>
+      <ul>
+        {
+          About.map(about=>
+            <li><Link to={`/About/${about.id}`}>{about.content}</Link></li>)
+        }
+      </ul>
     </div>
   )
  }
